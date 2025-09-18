@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RemitPay - Mi Perfil</title>
+    
+    <!-- Fuentes externas -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Estilos de la página de inicio -->
+    <link href="landing.css" rel="stylesheet">
+    
+    <style>
+        .profile-content {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        .profile-card {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            backdrop-filter: blur(20px);
+            box-shadow: var(--shadow);
+        }
+        
+        .profile-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        
+        .profile-title {
+            font-size: 2.5rem;
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+            font-weight: 800;
+        }
+        
+        .profile-subtitle {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+        }
+        
+        .profile-avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: var(--accent-gradient);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: white;
+            margin: 0 auto 1.5rem;
+            box-shadow: var(--shadow);
+        }
+        
+        .profile-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        
+        .info-section h3 {
+            color: var(--text-primary);
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1.3rem;
+        }
+        
+        .info-item {
+            margin-bottom: 1rem;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            border: 1px solid var(--glass-border);
+        }
+        
+        .info-label {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            font-weight: 500;
+            margin-bottom: 0.25rem;
+        }
+        
+        .info-value {
+            color: var(--text-primary);
+            font-size: 1rem;
+            font-weight: 600;
+        }
+        
+        .edit-button {
+            background: var(--accent-gradient);
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            box-shadow: var(--shadow);
+            margin: 1rem 0;
+        }
+        
+        .edit-button:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-hover);
+        }
+        
+        .logout-button {
+            background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            box-shadow: var(--shadow);
+            margin-left: 1rem;
+        }
+        
+        .logout-button:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-hover);
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-group label {
+            display: block;
+            color: var(--text-secondary);
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+        }
+        
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid var(--glass-border);
+            border-radius: 10px;
+            color: var(--text-primary);
+            font-family: 'Inter', sans-serif;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+        
+        .form-group input:focus, .form-group select:focus {
+            outline: none;
+            border-color: rgba(255, 255, 255, 0.4);
+            box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.1);
+        }
+        
+        .form-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+        }
+        
+        .edit-form {
+            display: none;
+        }
+        
+        .save-button {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+        }
+        
+        .cancel-button {
+            background: linear-gradient(135deg, #6b7280 0%, #4b5563 100%);
+            margin-left: 1rem;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        .stat-card {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 15px;
+            padding: 1.5rem;
+            text-align: center;
+            backdrop-filter: blur(20px);
+        }
+        
+        .stat-number {
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+        }
+        
+        .stat-label {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+        
+        .error-message, .success-message {
+            padding: 1rem;
+            border-radius: 10px;
+            margin-bottom: 1rem;
+            display: none;
+        }
+        
+        .error-message {
+            background: rgba(239, 68, 68, 0.1);
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            color: #ef4444;
+        }
+        
+        .success-message {
+            background: rgba(34, 197, 94, 0.1);
+            border: 1px solid rgba(34, 197, 94, 0.3);
+            color: #22c55e;
+        }
+        
+        @media (max-width: 768px) {
+            .profile-content {
+                padding: 1rem;
+            }
+            
+            .profile-info {
+                grid-template-columns: 1fr;
+            }
+            
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+            
+            .logout-button {
+                margin-left: 0;
+                margin-top: 1rem;
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Fondo animado -->
+    <div class="animated-bg" id="animatedBg"></div>
+
+    <!-- Contenido principal -->
+    <div class="main-content">
+        <!-- Header -->
+        <header class="header">
+            <div class="nav-container">
+                <div class="logo">
+                    <i class="fas fa-money-bill-transfer"></i>
+                    <span>RemitPay</span>
+                </div>
+                <nav class="nav-menu">
+                    <a href="/" class="nav-item">Inicio</a>
+                    <a href="/pago" class="nav-item">Dashboard</a>
+                    <a href="/perfil" class="nav-item">Perfil</a>
+                </nav>
+            </div>
+        </header>
+
+        <!-- Profile Content -->
+        <main class="profile-content">
+            <div class="profile-header">
+                <h1 class="profile-title">
+                    <i class="fas fa-user-circle"></i>
+                    Mi Perfil
+                </h1>
+                <p class="profile-subtitle">
+                    Gestiona tu información personal y configuración de cuenta
+                </p>
+            </div>
+
+            <div id="errorMessage" class="error-message"></div>
+            <div id="successMessage" class="success-message"></div>
+
+            <!-- Stats -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-number" id="totalTransactions">0</div>
+                    <div class="stat-label">Transacciones</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="totalAmount">$0</div>
+                    <div class="stat-label">Total Enviado</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="memberSince">-</div>
+                    <div class="stat-label">Miembro desde</div>
+                </div>
+            </div>
+
+            <!-- Profile Information -->
+            <div class="profile-card">
+                <div class="profile-avatar" id="profileAvatar">
+                    <i class="fas fa-user"></i>
+                </div>
+
+                <!-- View Mode -->
+                <div id="viewMode">
+                    <div class="profile-info">
+                        <div class="info-section">
+                            <h3><i class="fas fa-user"></i> Información Personal</h3>
+                            
+                            <div class="info-item">
+                                <div class="info-label">Nombre completo</div>
+                                <div class="info-value" id="displayName">-</div>
+                            </div>
+                            
+                            <div class="info-item">
+                                <div class="info-label">Usuario</div>
+                                <div class="info-value" id="displayUsername">-</div>
+                            </div>
+                            
+                            <div class="info-item">
+                                <div class="info-label">Email</div>
+                                <div class="info-value" id="displayEmail">-</div>
+                            </div>
+                            
+                            <div class="info-item">
+                                <div class="info-label">Teléfono</div>
+                                <div class="info-value" id="displayPhone">No especificado</div>
+                            </div>
+                            
+                            <div class="info-item">
+                                <div class="info-label">País</div>
+                                <div class="info-value" id="displayCountry">No especificado</div>
+                            </div>
+                        </div>
+
+                        <div class="info-section">
+                            <h3><i class="fas fa-wallet"></i> Información de Wallet</h3>
+                            
+                            <div class="info-item">
+                                <div class="info-label">Dirección de Wallet</div>
+                                <div class="info-value" id="displayWallet">No configurada</div>
+                            </div>
+                            
+                            <div class="info-item">
+                                <div class="info-label">Estado de verificación</div>
+                                <div class="info-value">
+                                    <span style="color: #10b981;">✓ Verificado</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div style="text-align: center; margin-top: 2rem;">
+                        <button id="editButton" class="edit-button">
+                            <i class="fas fa-edit"></i>
+                            Editar Perfil
+                        </button>
+                        <button id="logoutButton" class="logout-button">
+                            <i class="fas fa-sign-out-alt"></i>
+                            Cerrar Sesión
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Edit Mode -->
+                <div id="editMode" class="edit-form">
+                    <form id="profileForm">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="editFirstName">Nombre</label>
+                                <input type="text" id="editFirstName" name="firstName" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="editLastName">Apellido</label>
+                                <input type="text" id="editLastName" name="lastName" required>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="editPhone">Teléfono</label>
+                                <input type="tel" id="editPhone" name="phone">
+                            </div>
+                            <div class="form-group">
+                                <label for="editCountry">País</label>
+                                <select id="editCountry" name="country">
+                                    <option value="">Seleccionar país</option>
+                                    <option value="AR">Argentina</option>
+                                    <option value="BO">Bolivia</option>
+                                    <option value="BR">Brasil</option>
+                                    <option value="CL">Chile</option>
+                                    <option value="CO">Colombia</option>
+                                    <option value="CR">Costa Rica</option>
+                                    <option value="CU">Cuba</option>
+                                    <option value="EC">Ecuador</option>
+                                    <option value="SV">El Salvador</option>
+                                    <option value="ES">España</option>
+                                    <option value="US">Estados Unidos</option>
+                                    <option value="GT">Guatemala</option>
+                                    <option value="HN">Honduras</option>
+                                    <option value="MX">México</option>
+                                    <option value="NI">Nicaragua</option>
+                                    <option value="PA">Panamá</option>
+                                    <option value="PY">Paraguay</option>
+                                    <option value="PE">Perú</option>
+                                    <option value="DO">República Dominicana</option>
+                                    <option value="UY">Uruguay</option>
+                                    <option value="VE">Venezuela</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="editWallet">Dirección de Wallet</label>
+                            <input type="text" id="editWallet" name="walletAddress" placeholder="https://ilp.interledger-test.dev/tu-wallet">
+                        </div>
+
+                        <div style="text-align: center; margin-top: 2rem;">
+                            <button type="submit" class="edit-button save-button">
+                                <i class="fas fa-save"></i>
+                                Guardar Cambios
+                            </button>
+                            <button type="button" id="cancelButton" class="edit-button cancel-button">
+                                <i class="fas fa-times"></i>
+                                Cancelar
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <p class="footer-text">
+                &copy; 2025 RemitPay. Tecnología avanzada para remesas internacionales.
+            </p>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="landing.js"></script>
+    <script src="navigation.js"></script>
+    <script>
+        class ProfileApp {
+            constructor() {
+                this.user = null;
+                this.token = localStorage.getItem('remitpay_token');
+                
+                this.initializeElements();
+                this.attachEventListeners();
+                this.checkAuthentication();
+            }
+
+            initializeElements() {
+                this.viewMode = document.getElementById('viewMode');
+                this.editMode = document.getElementById('editMode');
+                this.editButton = document.getElementById('editButton');
+                this.logoutButton = document.getElementById('logoutButton');
+                this.cancelButton = document.getElementById('cancelButton');
+                this.profileForm = document.getElementById('profileForm');
+                this.errorMessage = document.getElementById('errorMessage');
+                this.successMessage = document.getElementById('successMessage');
+            }
+
+            attachEventListeners() {
+                this.editButton.addEventListener('click', () => this.enterEditMode());
+                this.cancelButton.addEventListener('click', () => this.exitEditMode());
+                this.logoutButton.addEventListener('click', () => this.logout());
+                this.profileForm.addEventListener('submit', (e) => this.updateProfile(e));
+            }
+
+            async checkAuthentication() {
+                if (!this.token) {
+                    window.location.href = '/login';
+                    return;
+                }
+
+                try {
+                    const response = await fetch('/api/auth/profile', {
+                        headers: {
+                            'Authorization': `Bearer ${this.token}`
+                        }
+                    });
+
+                    if (response.ok) {
+                        const data = await response.json();
+                        this.user = data.user;
+                        this.displayUserInfo();
+                    } else {
+                        localStorage.removeItem('remitpay_token');
+                        localStorage.removeItem('remitpay_user');
+                        window.location.href = '/login';
+                    }
+                } catch (error) {
+                    console.error('Error verificando autenticación:', error);
+                    this.showError('Error de conexión');
+                }
+            }
+
+            displayUserInfo() {
+                if (!this.user) return;
+
+                // Información personal
+                document.getElementById('displayName').textContent = 
+                    `${this.user.firstName} ${this.user.lastName}`;
+                document.getElementById('displayUsername').textContent = this.user.username;
+                document.getElementById('displayEmail').textContent = this.user.email;
+                document.getElementById('displayPhone').textContent = 
+                    this.user.phone || 'No especificado';
+                document.getElementById('displayCountry').textContent = 
+                    this.getCountryName(this.user.country) || 'No especificado';
+                document.getElementById('displayWallet').textContent = 
+                    this.user.walletAddress || 'No configurada';
+
+                // Avatar con iniciales
+                const initials = `${this.user.firstName.charAt(0)}${this.user.lastName.charAt(0)}`;
+                document.getElementById('profileAvatar').textContent = initials;
+
+                // Estadísticas
+                if (this.user.createdAt) {
+                    const date = new Date(this.user.createdAt);
+                    document.getElementById('memberSince').textContent = 
+                        date.getFullYear().toString();
+                }
+
+                // Llenar formulario de edición
+                this.fillEditForm();
+            }
+
+            fillEditForm() {
+                if (!this.user) return;
+
+                document.getElementById('editFirstName').value = this.user.firstName || '';
+                document.getElementById('editLastName').value = this.user.lastName || '';
+                document.getElementById('editPhone').value = this.user.phone || '';
+                document.getElementById('editCountry').value = this.user.country || '';
+                document.getElementById('editWallet').value = this.user.walletAddress || '';
+            }
+
+            enterEditMode() {
+                this.viewMode.style.display = 'none';
+                this.editMode.style.display = 'block';
+                this.hideMessages();
+            }
+
+            exitEditMode() {
+                this.editMode.style.display = 'none';
+                this.viewMode.style.display = 'block';
+                this.fillEditForm(); // Restaurar valores originales
+                this.hideMessages();
+            }
+
+            async updateProfile(e) {
+                e.preventDefault();
+
+                const formData = new FormData(this.profileForm);
+                const updateData = {
+                    firstName: formData.get('firstName'),
+                    lastName: formData.get('lastName'),
+                    phone: formData.get('phone'),
+                    country: formData.get('country'),
+                    walletAddress: formData.get('walletAddress')
+                };
+
+                try {
+                    const response = await fetch('/api/auth/profile', {
+                        method: 'PUT',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': `Bearer ${this.token}`
+                        },
+                        body: JSON.stringify(updateData)
+                    });
+
+                    const data = await response.json();
+
+                    if (data.success) {
+                        this.user = data.user;
+                        this.displayUserInfo();
+                        this.exitEditMode();
+                        this.showSuccess('Perfil actualizado exitosamente');
+                        
+                        // Actualizar localStorage
+                        localStorage.setItem('remitpay_user', JSON.stringify(this.user));
+                    } else {
+                        this.showError(data.error || 'Error actualizando perfil');
+                    }
+                } catch (error) {
+                    console.error('Error actualizando perfil:', error);
+                    this.showError('Error de conexión');
+                }
+            }
+
+            logout() {
+                localStorage.removeItem('remitpay_token');
+                localStorage.removeItem('remitpay_user');
+                window.location.href = '/';
+            }
+
+            getCountryName(code) {
+                const countries = {
+                    'AR': 'Argentina',
+                    'BO': 'Bolivia',
+                    'BR': 'Brasil',
+                    'CL': 'Chile',
+                    'CO': 'Colombia',
+                    'CR': 'Costa Rica',
+                    'CU': 'Cuba',
+                    'EC': 'Ecuador',
+                    'SV': 'El Salvador',
+                    'ES': 'España',
+                    'US': 'Estados Unidos',
+                    'GT': 'Guatemala',
+                    'HN': 'Honduras',
+                    'MX': 'México',
+                    'NI': 'Nicaragua',
+                    'PA': 'Panamá',
+                    'PY': 'Paraguay',
+                    'PE': 'Perú',
+                    'DO': 'República Dominicana',
+                    'UY': 'Uruguay',
+                    'VE': 'Venezuela'
+                };
+                return countries[code];
+            }
+
+            showError(message) {
+                this.errorMessage.textContent = message;
+                this.errorMessage.style.display = 'block';
+                this.successMessage.style.display = 'none';
+            }
+
+            showSuccess(message) {
+                this.successMessage.textContent = message;
+                this.successMessage.style.display = 'block';
+                this.errorMessage.style.display = 'none';
+            }
+
+            hideMessages() {
+                this.errorMessage.style.display = 'none';
+                this.successMessage.style.display = 'none';
+            }
+        }
+
+        // Inicializar la aplicación
+        document.addEventListener('DOMContentLoaded', () => {
+            new ProfileApp();
+        });
+    </script>
+</body>
+</html>
