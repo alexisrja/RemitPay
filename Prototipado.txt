@@ -1,0 +1,202 @@
+##Installation Manual
+#RemitPay
+
+Web application for sending international remittances, based on the Interledger Protocol. Enables fast, secure, and multi-currency transfers between compatible wallets.
+Table of Contents
+
+    - Features
+
+    - Prerequisites
+
+    - Installation
+
+    - Configuration
+
+    - Run the Application
+
+    - Usage
+
+    - API Endpoints
+
+    - Project Structure
+
+    - Security
+
+    - Supported Currencies
+
+    - Available Scripts
+
+    - Troubleshooting
+
+    - Contributing
+
+    - License
+
+    - Support
+
+##Features
+
+    - Modern and intuitive web interface
+
+    - Support for multiple currencies (USD, EUR, MXN, COP, ARS, BRL, PEN)
+
+    - Secure transfers via Interledger Protocol (ILP)
+
+    - Real-time quotes before sending remittances
+
+    - Transaction history and tracking
+
+    - Secure and interactive authorization process
+
+##Prerequisites
+
+    - Node.js v16 or higher
+
+    - npm or yarn
+
+    - Configured and active Interledger wallets
+
+    - Your wallet's private key
+
+##Installation
+
+    - Clone the repository
+    - bash
+
+git clone https://github.com/your-user/RemitPay.git
+cd RemitPay
+
+##Install dependencies
+bash
+
+npm install
+
+Configuration
+
+    Environment Variables
+
+    Create or edit the .env file in the project root with your data:
+    env
+
+WALLET_ADDRESS_URL=https://ilp.interledger-test.dev/your-wallet
+PRIVATE_KEY=private.key
+KEY_ID=your-key-id
+PORT=3000
+
+    Private Key
+
+    Place the private.key file in the root directory.
+
+Run the Application
+
+    Development mode
+    bash
+
+npm run dev
+
+Production mode
+bash
+
+npm start
+
+##The application will be available at http://localhost:3000.
+###Usage
+
+    - Access the web interface in your browser.
+
+    - Complete the remittance form with the required data.
+
+    - Get the quote and review the details.
+
+    - Confirm and authorize the payment from your wallet.
+
+    - Track the transaction status and consult the history.
+
+##API Endpoints
+
+    - POST /api/remittance/quote: Get a quote.
+
+    - POST /api/remittance/send: Initiate remittance send.
+
+    - POST /api/remittance/complete/:transactionId: Complete authorization.
+
+    - GET /api/remittance/status/:transactionId: Check status.
+
+    - GET /api/remittance/supported-currencies: List supported currencies.
+
+##Project Structure
+
+RemitPay/
+├── public/              # Static files
+├── routes/              # API endpoints
+├── server.js            # Main server
+├── interledger-core.js  # Interledger script
+├── package.json         # Configuration
+├── .env                 # Environment variables
+└── README.md            # Documentation
+
+##Security
+
+    - Sensitive configuration in .env
+
+    - Interactive authorization and data validation
+
+    - Recommended to use HTTPS in production
+
+Supported Currencies
+Code	Name	Symbol
+USD	US Dollar	$
+EUR	Euro	€
+MXN	Mexican Peso	$
+COP	Colombian Peso	$
+ARS	Argentine Peso	$
+BRL	Brazilian Real	R$
+PEN	Peruvian Sol	S/
+Available Scripts
+
+    npm start - Production mode
+
+    npm run dev - Development mode
+
+    npm run interledger-demo - Interledger demo
+
+###Troubleshooting
+
+    Cannot find module: Run npm install
+
+    Port already in use: Change the port in .env
+
+    Authorization/quote errors: Verify wallets, funds, and configuration
+
+###Contributing
+
+    Fork the repository
+
+    Create a branch (git checkout -b feature/new-feature)
+
+    Make your changes and commit
+
+    Push and create a Pull Request
+
+###License
+
+This project is under the ISC License. See the LICENSE file for more information.
+Support
+
+    - Create an issue on GitHub
+
+    - Consult the Interledger documentation
+
+    - Consult the Open Payments Guide
+
+##RemitPay - Powered by Interledger Protocol 🚀
+###Web Development Stack:
+
+
+    - Frontend: React.js or Next.js with TypeScript for a dynamic, responsive, and scalable user interface.
+
+    - Backend: Node.js with Express or Python with Django to handle business logic, API communication, and the database.
+
+    - Database: PostgreSQL or MongoDB to store user data (encrypted) and transaction records.
+
+    - Infrastructure: Cloud services like AWS, Google Cloud, or Azure to ensure scalability and high availability.
